@@ -41,3 +41,33 @@ Autonomous contract governance workflow that evaluates vendor MSAs, SLAs, and Sa
                    (Generates Clause Negotiation Matrix)
                                      │
                             [Output: Audit Dossier]
+
+---
+
+## 2. Autonomous SOC Threat Triage & Incident Responder
+
+Real-time SecOps alert investigation pipeline that processes raw SIEM telemetry, isolates forensic Indicators of Compromise (IoCs), assesses exploitation severity, maps attack tactics to MITRE ATT&CK, and produces Tier-1 through Tier-3 containment runbooks.
+
+### Architecture
+
+```text
+                  [User Input: Raw SIEM Alert & Environment Tier]
+                                         │
+                             [LLM: IoC Extractor]
+                      (IPs, Hashes, Parent PIDs, Commands)
+                                         │
+                 ┌───────────────────────┴───────────────────────┐
+                 │                                               │
+   [Sub-Agent A: Network Threat                     [Sub-Agent B: Identity & Host
+        Intelligence Analyst]                             Compromise Auditor]
+  (C2 Beaconing, Tor Egress, Shodan)              (LSASS Injections, LOLBins, IAM)
+                 │                                               │
+                 └───────────────────────┬───────────────────────┘
+                                         │
+                           [Code Node: Python Engine]
+                     Threat Index = (0.50*Net) + (0.50*Host)
+                                         │
+                         [LLM: Incident Commander]
+                   (MITRE ATT&CK Mapping & Runbook Dispatch)
+                                         │
+                             [Output: Forensic Dossier]
