@@ -93,13 +93,6 @@ Real-time SecOps alert investigation pipeline that processes raw SIEM telemetry,
 
 ---
 https://udify.app/workflow/TuI2VsDUi28ugIxG
-## How to Import into Dify
-
-1. Download either `.yml` file from this repository.
-2. Log in to [Dify.ai](https://cloud.dify.ai).
-3. In **Studio**, click **Create from Blank** $\rightarrow$ select **Import DSL file**.
-4. Upload the downloaded file to immediately launch and run the workflow canvas.
-
 > **Quick Test Alert (Copy & Paste):**
 > *Target Environment:* Critical Production Infrastructure
 > *Security Alert:*
@@ -108,3 +101,10 @@ https://udify.app/workflow/TuI2VsDUi28ugIxG
 > Process 'powershell.exe' spawned by parent 'w3wp.exe' with base64 encoded payload. 
 > LSASS memory injection detected from PID 4812 targeting Local Security Authority Subsystem; dump saved to C:\Windows\Temp\debug.dmp. 
 > Outbound TCP connection established on port 4444 to known Tor exit node 185.220.101.5 with 45s heartbeat intervals. 142 MB egress observed."
+
+## How to Import into Dify
+
+1. Download either `.yml` file from this repository.
+2. Log in to [Dify.ai](https://cloud.dify.ai).
+3. In **Studio**, click **Create from Blank** $\rightarrow$ select **Import DSL file**.
+4. Upload the downloaded file to immediately launch and run the workflow canvas.
