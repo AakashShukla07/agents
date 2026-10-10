@@ -48,6 +48,14 @@ Autonomous contract governance workflow that evaluates vendor MSAs, SLAs, and Sa
 
 ---
 https://udify.app/workflow/dR4HybmfV9BwB2RA
+> **Quick Test Prompt (Copy & Paste):**
+> "MASTER SERVICES AGREEMENT (EXCERPT): 
+> 1. LIMITATION OF LIABILITY: Under no circumstances shall Vendor’s aggregate cumulative liability arising out of or related to this Agreement exceed the total fees actually paid by Customer in the one (1) month preceding the incident. 
+> 2. DATA INCIDENT NOTIFICATION: Vendor shall notify Customer of verified data security breaches within forty-five (45) business days. 
+> 3. INTELLECTUAL PROPERTY: Any modifications, improvements, or derivative works created using Customer data shall remain the exclusive property of Vendor. 
+> 4. TERM: This agreement automatically renews for successive 3-year periods unless terminated 180 days prior to expiration."
+
+
 ## 2. Autonomous SOC Threat Triage & Incident Responder
 
 Real-time SecOps alert investigation pipeline that processes raw SIEM telemetry, isolates forensic Indicators of Compromise (IoCs), assesses exploitation severity, maps attack tactics to the MITRE ATT&CK matrix, and produces Tier-1 through Tier-3 containment runbooks.
@@ -91,3 +99,12 @@ https://udify.app/workflow/TuI2VsDUi28ugIxG
 2. Log in to [Dify.ai](https://cloud.dify.ai).
 3. In **Studio**, click **Create from Blank** $\rightarrow$ select **Import DSL file**.
 4. Upload the downloaded file to immediately launch and run the workflow canvas.
+
+> **Quick Test Alert (Copy & Paste):**
+> *Target Environment:* Critical Production Infrastructure
+> *Security Alert:*
+> "[SIEM ALERT: SEC-99420] 
+> Sensor: CrowdStrike Falcon. Host: PROD-DB-01 (10.0.4.82). 
+> Process 'powershell.exe' spawned by parent 'w3wp.exe' with base64 encoded payload. 
+> LSASS memory injection detected from PID 4812 targeting Local Security Authority Subsystem; dump saved to C:\Windows\Temp\debug.dmp. 
+> Outbound TCP connection established on port 4444 to known Tor exit node 185.220.101.5 with 45s heartbeat intervals. 142 MB egress observed."
