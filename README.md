@@ -47,7 +47,7 @@ Autonomous contract governance workflow that evaluates vendor MSAs, SLAs, and Sa
 * **Redline Negotiation Matrix:** Generates side-by-side contract counter-proposals with defensible business rationales ready for procurement teams.
 
 ---
-
+https://udify.app/workflow/dR4HybmfV9BwB2RA
 ## 2. Autonomous SOC Threat Triage & Incident Responder
 
 Real-time SecOps alert investigation pipeline that processes raw SIEM telemetry, isolates forensic Indicators of Compromise (IoCs), assesses exploitation severity, maps attack tactics to the MITRE ATT&CK matrix, and produces Tier-1 through Tier-3 containment runbooks.
@@ -84,7 +84,7 @@ Real-time SecOps alert investigation pipeline that processes raw SIEM telemetry,
 * **Automated Containment Runbook:** Generates operational steps for immediate host quarantine, firewall drop rules, and identity session invalidation.
 
 ---
-
+https://udify.app/workflow/TuI2VsDUi28ugIxG
 ## How to Import into Dify
 
 1. Download either `.yml` file from this repository.
