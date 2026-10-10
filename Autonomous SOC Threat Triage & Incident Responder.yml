@@ -1,0 +1,496 @@
+app:
+  description: Enterprise SecOps orchestrator parsing SIEM alerts, calculating weighted
+    threat indices, mapping MITRE ATT&CK vectors, and drafting containment runbooks.
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: Autonomous SOC Threat Triage & Incident Responder
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.7@f36c3761167b3af0bfb4975b728fe3cd126342d076e1ec5359e6d4f92557d3d4
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1791648307453--1791648526277-target
+      source: '1791648307453'
+      sourceHandle: source
+      target: '1791648526277'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1791648526277-source-1791648639041-target
+      source: '1791648526277'
+      sourceHandle: source
+      target: '1791648639041'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1791648526277-source-1791648643347-target
+      source: '1791648526277'
+      sourceHandle: source
+      target: '1791648643347'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1791648643347-source-1791648727543-target
+      source: '1791648643347'
+      sourceHandle: source
+      target: '1791648727543'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1791648639041-source-1791648727543-target
+      source: '1791648639041'
+      sourceHandle: source
+      target: '1791648727543'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1791648727543-source-1791648834527-target
+      source: '1791648727543'
+      sourceHandle: source
+      target: '1791648834527'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1791648834527-source-1791648934133-target
+      source: '1791648834527'
+      sourceHandle: source
+      target: '1791648934133'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables:
+        - default: SIEM / EDR Security Alert Telemetry
+          hint: ''
+          label: security_alert
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: security_alert
+        - hint: ''
+          label: Target Environment Tier
+          options:
+          - Critical Production Infrastructure
+          - Corporate Workstation
+          - Staging / Sandbox
+          placeholder: ''
+          required: true
+          type: select
+          variable: environment_tier
+      height: 134
+      id: '1791648307453'
+      position:
+        x: 124.05522978381015
+        y: 282
+      positionAbsolute:
+        x: 124.05522978381015
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791648307453'
+          - security_alert
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 3348fa3c-86b9-44ef-96ce-a5a7462995b7
+          role: system
+          text: 'You are an expert SOC Level 1 Incident Analyst. Ingest raw security
+            alerts, SIEM logs, or EDR outputs and extract all Indicators of Compromise
+            (IoCs) and forensic telemetry into distinct categories:
+
+            - Source & Destination IP addresses / Domains
+
+            - User Accounts & IAM Roles involved
+
+            - Processes, Binaries, Hashes (SHA256/MD5), and PowerShell/Bash execution
+            commands
+
+            - Targeted Port numbers and Protocol services
+
+
+            Format the extracted telemetry clearly for threat intelligence analysis.'
+        selected: false
+        title: IoC Extractor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791648526277'
+      position:
+        x: 386.5388791927179
+        y: 303
+      positionAbsolute:
+        x: 386.5388791927179
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791648526277'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 189ca8ec-954c-435d-8c76-03979520df8f
+          role: system
+          text: 'You are an expert Threat Intelligence Analyst specializing in network
+            telemetry, C2 beaconing, and malicious egress.
+
+            Analyze the extracted network telemetry against known attack patterns
+            (e.g., DNS tunneling, unauthorized SSH tunneling, Cobalt Strike beacon
+            intervals).
+
+
+            Output plain text containing:
+
+            - Network Threat Score: <integer 0-100>
+
+            - Malicious IP/Domain Classification: <CRITICAL / SUSPICIOUS / BENIGN>
+
+            - Key Vector Finding: <1-2 sentences on network risk>'
+        selected: false
+        title: Network Threat Analyst
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791648639041'
+      position:
+        x: 652.9558089827174
+        y: 303
+      positionAbsolute:
+        x: 652.9558089827174
+        y: 303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791648526277'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 7f7735b5-5f34-4641-82f9-38d9ef4e65c2
+          role: system
+          text: 'You are an expert Endpoint & Identity Security Analyst (EDR/IAM specialist).
+
+            Analyze the extracted user actions, processes, and command executions
+            for signs of privilege escalation, Kerberoasting, credential harvesting,
+            or unauthorized living-off-the-land binaries (LOLBins).
+
+
+            Output plain text containing:
+
+            - Host/Identity Threat Score: <integer 0-100>
+
+            - Execution Severity: <CRITICAL / ELEVATED / BENIGN>
+
+            - Key Host Finding: <1-2 sentences on identity/endpoint risk>'
+        selected: false
+        title: Identity & Host Auditor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791648643347'
+      position:
+        x: 652.9558089827174
+        y: 435.42835332248586
+      positionAbsolute:
+        x: 652.9558089827174
+        y: 435.42835332248586
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import re\n\ndef extract_score(text: str, default: int = 70) -> int:\n\
+          \    match = re.search(r'[\"\\']?\\w*_?threat_?score[\"\\']?\\s*:\\s*(\\\
+          d{1,3})', str(text), re.IGNORECASE)\n    if match:\n        val = int(match.group(1))\n\
+          \        if 0 <= val <= 100:\n            return val\n    numbers = re.findall(r'\\\
+          b(\\d{1,3})\\b', str(text))\n    for num in numbers:\n        val = int(num)\n\
+          \        if 0 <= val <= 100:\n            return val\n    return default\n\
+          \ndef clean_snippet(text: str) -> str:\n    return re.sub(r'```|\\{|\\}',\
+          \ '', str(text)).strip()[:280]\n\ndef main(network_str: str = \"\", host_str:\
+          \ str = \"\", **kwargs) -> dict:\n    net_input = network_str or kwargs.get(\"\
+          network_json\", \"\")\n    host_input = host_str or kwargs.get(\"host_json\"\
+          , \"\")\n\n    net_score = extract_score(net_input, 85)\n    host_score\
+          \ = extract_score(host_input, 80)\n\n    # 50/50 weighted exploitation index\n\
+          \    composite_score = round((net_score * 0.50) + (host_score * 0.50))\n\
+          \n    if composite_score >= 80:\n        severity = \"CRITICAL (TIER 3 CONTAINMENT)\"\
+          \n        action = \"IMMEDIATE HOST ISOLATION & SESSION REVOCATION REQUIRED\"\
+          \n    elif composite_score >= 50:\n        severity = \"ELEVATED (TIER 2\
+          \ THREAT)\"\n        action = \"ENHANCED MONITORING & CREDENTIAL ROTATION\
+          \ RECOMMENDED\"\n    else:\n        severity = \"LOW / BENIGN (TIER 1)\"\
+          \n        action = \"CLOSE ALERT AS FALSE POSITIVE OR ROUTINE SCAN\"\n\n\
+          \    report_text = (\n        f\"THREAT EXPLOITATION INDEX: {composite_score}/100\\\
+          n\"\n        f\"INCIDENT SEVERITY: {severity}\\n\"\n        f\"CONTAINMENT\
+          \ MANDATE: {action}\\n\\n\"\n        f\"SPECIALIST FINDINGS:\\n\"\n    \
+          \    f\"[NETWORK TELEMETRY]: {clean_snippet(net_input)}\\n\"\n        f\"\
+          [HOST & IDENTITY]: {clean_snippet(host_input)}\"\n    )\n\n    return {\n\
+          \        \"report\": report_text\n    }"
+        code_language: python3
+        outputs:
+          report:
+            children: null
+            type: string
+        selected: false
+        title: Code
+        type: code
+        variables:
+        - value_selector:
+          - '1791648639041'
+          - text
+          value_type: string
+          variable: network_str
+        - value_selector:
+          - '1791648643347'
+          - text
+          value_type: string
+          variable: host_str
+      height: 51
+      id: '1791648727543'
+      position:
+        x: 922.5618705299007
+        y: 379.73421860300795
+      positionAbsolute:
+        x: 922.5618705299007
+        y: 379.73421860300795
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791648727543'
+          - report
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 2ecc27dd-386b-44e0-8649-e0b813997cad
+          role: system
+          text: 'Context:
+
+            {{#context#}}
+
+            You are a Principal SOC Incident Commander.
+
+            Ingest the forensic telemetry and threat assessment from the code engine
+            to compile a production-ready Incident Triage Dossier.
+
+
+            Structure your final response as follows:
+
+            # 🚨 Security Incident Forensic Dossier
+
+            - **Threat Score:** [Score]/100
+
+            - **Incident Severity:** [CRITICAL / ELEVATED / BENIGN]
+
+            - **Identified Threat Actor Vector:** [Summary]
+
+
+            # 🎯 MITRE ATT&CK Alignment
+
+            | Tactic | Technique ID | Technique Name | Evidence in Telemetry |
+
+            | --- | --- | --- | --- |
+
+
+            # 🛡️ Autonomous Containment Runbook
+
+            1. **Immediate Quarantine Actions** (e.g., Firewall drop rules, EDR isolation)
+
+            2. **Identity Remediation** (e.g., Okta/Entra ID session invalidation)
+
+            3. **Forensic Evidence Preservation** (e.g., memory dump, syslog archival)'
+        selected: false
+        title: Incident Commander
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791648834527'
+      position:
+        x: 1183.8955045756145
+        y: 379.73421860300795
+      positionAbsolute:
+        x: 1183.8955045756145
+        y: 379.73421860300795
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1791648834527'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: Output
+        type: end
+      height: 88
+      id: '1791648934133'
+      position:
+        x: 1448.618002450852
+        y: 379.73421860300795
+      positionAbsolute:
+        x: 1448.618002450852
+        y: 379.73421860300795
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -461.12423997356547
+      y: 103.71545136666379
+      zoom: 0.6225235939240327
+  rag_pipeline_variables: []
