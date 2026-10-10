@@ -1,0 +1,551 @@
+app:
+  description: Autonomous enterprise LegalOps auditor running parallel specialist
+    agents to analyze contract liability, score compliance risks, and draft negotiation
+    redlines.
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: LegalOps Contract Risk & Redline Auditor
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.7@f36c3761167b3af0bfb4975b728fe3cd126342d076e1ec5359e6d4f92557d3d4
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1791602202997--1791602586549-target
+      selected: false
+      source: '1791602202997'
+      sourceHandle: source
+      target: '1791602586549'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1791643221944-source-1791643319559-target
+      selected: false
+      source: '1791643221944'
+      sourceHandle: source
+      target: '1791643319559'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1791602586549-source-1791644851343-target
+      selected: false
+      source: '1791602586549'
+      sourceHandle: source
+      target: '1791644851343'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1791602586549-source-1791644860245-target
+      selected: false
+      source: '1791602586549'
+      sourceHandle: source
+      target: '1791644860245'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1791602586549-source-1791644863777-target
+      selected: false
+      source: '1791602586549'
+      sourceHandle: source
+      target: '1791644863777'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1791644860245-source-1791645021750-target
+      selected: false
+      source: '1791644860245'
+      sourceHandle: source
+      target: '1791645021750'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1791644851343-source-1791645021750-target
+      selected: false
+      source: '1791644851343'
+      sourceHandle: source
+      target: '1791645021750'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1791644863777-source-1791645021750-target
+      selected: false
+      source: '1791644863777'
+      sourceHandle: source
+      target: '1791645021750'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1791645021750-source-1791643221944-target
+      selected: false
+      source: '1791645021750'
+      sourceHandle: source
+      target: '1791643221944'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: Contract Clauses/ Agreement Text
+          max_length: null
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: contract_text
+        - hint: ''
+          label: Risk Tolerance Profile
+          options:
+          - Strict Enterprise Guardrails
+          - Standard Vendor Terms
+          - Aggressive Growth (Lenient)
+          placeholder: ''
+          required: true
+          type: select
+          variable: risk_Profile
+      height: 134
+      id: '1791602202997'
+      position:
+        x: 113.259582231987
+        y: 387
+      positionAbsolute:
+        x: 113.259582231987
+        y: 387
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791602202997'
+          - contract_text
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: fcec0209-862f-4b89-b705-e8d4b997db69
+          role: system
+          text: 'You are an expert legal document parser. Ingest the provided contract
+            text and categorize every distinct clause into its functional domain:
+
+            - Limitation of Liability
+
+            - Indemnification & IP Infringement
+
+            - Governing Law & Dispute Jurisdiction
+
+            - Data Privacy & Security Breach Notification
+
+            - Termination & Automatic Renewal
+
+
+            Output the extracted clauses organized cleanly by category.'
+        selected: false
+        title: Clause Classifier
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791602586549'
+      position:
+        x: 393.08652741066226
+        y: 408
+      positionAbsolute:
+        x: 393.08652741066226
+        y: 408
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791645021750'
+          - report
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: f883c550-eb72-4cbc-9089-cd1a6b13cc6a
+          role: system
+          text: 'Context:
+
+            {{#context#}}
+
+            You are an expert contract negotiation specialist. Take the audited clauses
+            and risk findings, and draft specific, balanced redline counter-proposals
+            that mitigate the identified liability while remaining commercially viable.
+
+
+            Format your final output as a structured Markdown Executive Audit Dossier:
+
+            # Executive Risk Assessment
+
+            - **Risk Score:** [Score]/100
+
+            - **Verdict:** [REVISE BEFORE SIGNING / APPROVED]
+
+            - **Primary Exposure Vectors:** [Bullet points]
+
+
+            # Clause-by-Clause Redline Matrix
+
+            | Clause Category | Original Problematic Language | AI-Recommended Counter-Clause
+            | Business Rationale |
+
+            | --- | --- | --- | --- |'
+        selected: false
+        title: Redline Drafter
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791643221944'
+      position:
+        x: 1246.577021415326
+        y: 408
+      positionAbsolute:
+        x: 1246.577021415326
+        y: 408
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1791643221944'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: Output
+        type: end
+      height: 88
+      id: '1791643319559'
+      position:
+        x: 1524.8541066392463
+        y: 408
+      positionAbsolute:
+        x: 1524.8541066392463
+        y: 408
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791602586549'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 69ea3803-e9a0-4d5b-bc1b-2a38f00529d8
+          role: system
+          text: "You are an enterprise Financial & Liability Legal Specialist.\nAnalyze\
+            \ the extracted clauses solely for financial exposure:\n1. Check if liability\
+            \ caps are capped at low multiples (e.g., < 12 months fees) or completely\
+            \ uncapped for the customer.\n2. Check for payment term risks, interest\
+            \ penalties, and hidden fees.\n3. Output JSON only:\n{\n  \"financial_risk_score\"\
+            : <number 0-100>,\n  \"liability_cap_status\": \"<CRITICAL / MODERATE\
+            \ / SAFE>\",\n  \"key_risk_finding\": \"<1-sentence summary>\"\n}"
+        selected: false
+        title: Financial & Liability Auditor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791644851343'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791602586549'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 7b67215a-f801-4cac-bc30-f1f2ac05f834
+          role: system
+          text: "You are a Corporate Compliance & Data Privacy Legal Counsel (GDPR,\
+            \ SOC 2, HIPAA).\nAnalyze the extracted clauses solely for regulatory\
+            \ compliance:\n1. Check data breach notification windows. Flag anything\
+            \ exceeding 72 hours as non-compliant.\n2. Check for unauthorized sub-processor\
+            \ usage and data sovereignty violations.\n3. Output JSON only:\n{\n  \"\
+            compliance_risk_score\": <number 0-100>,\n  \"sla_breach_window\": \"\
+            <VIOLATION / COMPLIANT>\",\n  \"key_risk_finding\": \"<1-sentence summary>\"\
+            \n}"
+        selected: false
+        title: Compliance & Regulatory Auditor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791644860245'
+      position:
+        x: 684
+        y: 408
+      positionAbsolute:
+        x: 684
+        y: 408
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1791602586549'
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: f8901af7-aea3-4c53-8441-ef8919330f78
+          role: system
+          text: "You are an Intellectual Property & Commercial Contract Specialist.\n\
+            Analyze the extracted clauses solely for lock-in and IP ownership:\n1.\
+            \ Check for one-sided IP assignment, broad indemnity, or excessive non-compete\
+            \ clauses.\n2. Check for auto-renewal lock-ins (>30-day notice periods\
+            \ or multi-year terms).\n3. Output JSON only:\n{\n  \"lockin_risk_score\"\
+            : <number 0-100>,\n  \"ip_exposure\": \"<HIGH / MODERATE / MINIMAL>\"\
+            ,\n  \"key_risk_finding\": \"<1-sentence summary>\"\n}"
+        selected: false
+        title: IP & Commercial Lock-in Auditor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1791644863777'
+      position:
+        x: 684
+        y: 534
+      positionAbsolute:
+        x: 684
+        y: 534
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import re\n\ndef extract_score(text: str, default: int = 75) -> int:\n\
+          \    match = re.search(r'[\"\\']?\\w*_?risk_?score[\"\\']?\\s*:\\s*(\\d{1,3})',\
+          \ str(text), re.IGNORECASE)\n    if match:\n        val = int(match.group(1))\n\
+          \        if 0 <= val <= 100:\n            return val\n    numbers = re.findall(r'\\\
+          b(\\d{1,3})\\b', str(text))\n    for num in numbers:\n        val = int(num)\n\
+          \        if 0 <= val <= 100:\n            return val\n    return default\n\
+          \ndef clean_summary(text: str) -> str:\n    cleaned = re.sub(r'```json|```|\\\
+          {|\\}', '', str(text)).strip()\n    return cleaned[:250]\n\ndef main(financial_str:\
+          \ str = \"\", compliance_str: str = \"\", lockin_str: str = \"\", **kwargs)\
+          \ -> dict:\n    f_input = financial_str or kwargs.get(\"financial_json\"\
+          , \"\")\n    c_input = compliance_str or kwargs.get(\"compliance_json\"\
+          , \"\")\n    l_input = lockin_str or kwargs.get(\"lockin_json\", \"\")\n\
+          \n    f_score = extract_score(f_input, 85)\n    c_score = extract_score(c_input,\
+          \ 80)\n    l_score = extract_score(l_input, 75)\n\n    composite = round((f_score\
+          \ * 0.40) + (c_score * 0.35) + (l_score * 0.25))\n    verdict = \"REVISE\
+          \ BEFORE SIGNING\" if composite >= 65 else \"APPROVED\"\n\n    report_text\
+          \ = (\n        f\"COMPOSITE RISK INDEX: {composite}/100\\n\"\n        f\"\
+          VERDICT: {verdict}\\n\\n\"\n        f\"- Financial Risk Rating: {f_score}/100\\\
+          n\"\n        f\"- Compliance Risk Rating: {c_score}/100\\n\"\n        f\"\
+          - IP/Lock-in Risk Rating: {l_score}/100\\n\\n\"\n        f\"SPECIALIST FINDINGS:\\\
+          n\"\n        f\"[FINANCIAL]: {clean_summary(f_input)}\\n\"\n        f\"\
+          [COMPLIANCE]: {clean_summary(c_input)}\\n\"\n        f\"[LOCK-IN]: {clean_summary(l_input)}\"\
+          \n    )\n\n    return {\n        \"report\": report_text\n    }"
+        code_language: python3
+        outputs:
+          report:
+            children: null
+            type: string
+        selected: false
+        title: Code
+        type: code
+        variables:
+        - value_selector:
+          - '1791644851343'
+          - text
+          value_type: string
+          variable: financial_str
+        - value_selector:
+          - '1791644860245'
+          - text
+          value_type: string
+          variable: compliance_str
+        - value_selector:
+          - '1791644863777'
+          - text
+          value_type: string
+          variable: lockin_str
+      height: 51
+      id: '1791645021750'
+      position:
+        x: 970.1971844526192
+        y: 408
+      positionAbsolute:
+        x: 970.1971844526192
+        y: 408
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -219.4838136656483
+      y: -56.3673660970112
+      zoom: 0.7430693940199362
+  rag_pipeline_variables: []
